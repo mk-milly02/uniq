@@ -1,9 +1,11 @@
 package uniq
 
 import (
+	"bytes"
 	"io"
 	"log"
 	"os"
+	"slices"
 )
 
 func ReadFromFile(filename string) []byte {
@@ -17,4 +19,18 @@ func ReadFromFile(filename string) []byte {
 		log.Fatal(err)
 	}
 	return content
+}
+
+func Unique(text []byte) (output []string) {
+	reader := bytes.NewBuffer(text)
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		if !slices.Contains(output, line) {
+			output = append(output, line)
+		}
+	}
+	return output
 }
