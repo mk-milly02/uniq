@@ -7,6 +7,7 @@ import (
 	"log"
 	"os"
 	"slices"
+	"strconv"
 )
 
 func ReadFromFile(filename string) []byte {
@@ -60,6 +61,35 @@ func Unique(text []byte) (output []string) {
 		if !slices.Contains(output, line) {
 			output = append(output, line)
 		}
+	}
+	return output
+}
+
+func UniqueWithCount(text []byte) []string {
+	var output []string
+	lines_with_count := make(map[string]int)
+	reader := bytes.NewBuffer(text)
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		var lines []string
+		for k := range lines_with_count {
+			lines = append(lines, k)
+		}
+		if !slices.Contains(lines, line) {
+			lines_with_count[line] = 1
+		} else {
+			c := lines_with_count[line]
+			c++
+			lines_with_count[line] = c
+		}
+	}
+
+	for k, v := range lines_with_count {
+		line := strconv.Itoa(v) + " " + k
+		output = append(output, line)
 	}
 	return output
 }
