@@ -2,18 +2,28 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"uniq/uniq"
 )
 
 func main() {
 	flag.Parse()
-	filename := flag.Arg(0)
 
-	input := uniq.ReadFromFile(filename)
-	output := uniq.Unique(input)
+	var filename string
+	var output_filename string
+	var text []byte
 
-	for _, line := range output {
-		fmt.Print(line)
+	if filename = flag.Arg(0); filename == "-" {
+		text = uniq.ReadFromStandardInput()
+	} else {
+		text = uniq.ReadFromFile(filename)
 	}
+
+	output := uniq.Unique(text)
+
+	if output_filename = flag.Arg(1); output_filename != "" {
+		uniq.WriteToFile(output_filename, output)
+	} else {
+		uniq.WriteToStandardOutput(output)
+	}
+
 }
