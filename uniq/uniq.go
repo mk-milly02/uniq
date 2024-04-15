@@ -93,3 +93,21 @@ func UniqueWithCount(text []byte) []string {
 	}
 	return output
 }
+
+// Returns only repeated lines
+func UniqueRepeatedLines(text []byte) (output []string) {
+	var no_duplicates []string
+	reader := bytes.NewBuffer(text)
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		if !slices.Contains(no_duplicates, line) {
+			no_duplicates = append(output, line)
+		} else {
+			output = append(output, line)
+		}
+	}
+	return output
+}

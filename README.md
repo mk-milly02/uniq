@@ -13,3 +13,5 @@
 `cat test.txt | go run main.go - out.txt`
 
 `go run main.go -c test.txt`
+
+`go run main.go -d countries.txt`
