@@ -1,4 +1,4 @@
-# cut-tool
+# uniq-tool
 
 > This is a lite version of the Unix tool `uniq`.
 
