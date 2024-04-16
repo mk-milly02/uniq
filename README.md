@@ -15,3 +15,5 @@
 `go run main.go -c test.txt`
 
 `go run main.go -d countries.txt`
+
+`go run main.go -u test.txt`

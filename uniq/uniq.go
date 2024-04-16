@@ -111,3 +111,19 @@ func UniqueRepeatedLines(text []byte) (output []string) {
 	}
 	return output
 }
+
+// Returns only uniquw lines
+func UniqueOnly(text []byte) (output []string) {
+	reader := bytes.NewBuffer(text)
+	duplicates := UniqueRepeatedLines(text)
+	for {
+		line, err := reader.ReadString('\n')
+		if err != nil {
+			break
+		}
+		if !slices.Contains(duplicates, line) {
+			output = append(output, line)
+		}
+	}
+	return output
+}

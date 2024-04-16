@@ -8,6 +8,7 @@ import (
 func main() {
 	c := flag.Bool("c", false, "adds a new first column that contains a count of the number of times a line appears in an input.")
 	d := flag.Bool("d", false, "outputs only repeated lines")
+	u := flag.Bool("u", false, "outputs only unique lines")
 	flag.Parse()
 
 	var filename string
@@ -29,6 +30,10 @@ func main() {
 
 	if *d {
 		output = uniq.UniqueRepeatedLines(text)
+	}
+
+	if *u {
+		output = uniq.UniqueOnly(text)
 	}
 
 	if output_filename = flag.Arg(1); output_filename != "" {
