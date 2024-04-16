@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"slices"
 	"uniq/uniq"
 )
 
@@ -34,6 +35,13 @@ func main() {
 
 	if *u {
 		output = uniq.UniqueOnly(text)
+	}
+
+	if *c && *d {
+		o1 := uniq.UniqueWithCount(text)
+		o2 := uniq.UniqueRepeatedLines(text)
+		o3 := uniq.UniqueWithCountS(o2)
+		output = slices.Concat(o1, o3)
 	}
 
 	if output_filename = flag.Arg(1); output_filename != "" {

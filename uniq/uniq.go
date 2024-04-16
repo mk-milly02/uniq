@@ -94,6 +94,30 @@ func UniqueWithCount(text []byte) []string {
 	return output
 }
 
+func UniqueWithCountS(text []string) []string {
+	var output []string
+	lines_with_count := make(map[string]int)
+	for _, line := range text {
+		var lines []string
+		for k := range lines_with_count {
+			lines = append(lines, k)
+		}
+		if !slices.Contains(lines, line) {
+			lines_with_count[line] = 1
+		} else {
+			c := lines_with_count[line]
+			c++
+			lines_with_count[line] = c
+		}
+	}
+
+	for k, v := range lines_with_count {
+		line := strconv.Itoa(v) + " " + k
+		output = append(output, line)
+	}
+	return output
+}
+
 // Returns only repeated lines
 func UniqueRepeatedLines(text []byte) (output []string) {
 	var no_duplicates []string
